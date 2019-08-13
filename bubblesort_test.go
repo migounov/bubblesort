@@ -17,35 +17,48 @@ func generateSlice(n int) []int {
 }
 
 func BenchmarkBubblesort_10(b *testing.B) {
-	for i := 0; i < b.N; i++ {}
-	b.StopTimer()
-	s := generateSlice(10)
-	b.StartTimer()
-	bubbleSort(s)
+	for i := 0; i < b.N; i++ {
+		b.StopTimer()
+		s := generateSlice(10)
+		b.StartTimer()
+		bubbleSort(s)
+	}
+}
+
+func BenchmarkBubblesort_100(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		b.StopTimer()
+		s := generateSlice(100)
+		b.StartTimer()
+		bubbleSort(s)
+	}
 }
 
 func BenchmarkBubblesort_1000(b *testing.B) {
-	for i := 0; i < b.N; i++ {}
+	for i := 0; i < b.N; i++ {
 		b.StopTimer()
 		s := generateSlice(1000)
 		b.StartTimer()
 		bubbleSort(s)
+	}
 }
 
 func BenchmarkBubblesort_10000(b *testing.B) {
-	for i := 0; i < b.N; i++ {}
-	b.StopTimer()
-	s := generateSlice(10000)
-	b.StartTimer()
-	bubbleSort(s)
+	for i := 0; i < b.N; i++ {
+		b.StopTimer()
+		s := generateSlice(10000)
+		b.StartTimer()
+		bubbleSort(s)
+	}
 }
 
 func BenchmarkBubblesort_100000(b *testing.B) {
-	for i := 0; i < b.N; i++ {}
-	b.StopTimer()
-	s := generateSlice(100000)
-	b.StartTimer()
-	bubbleSort(s)
+	for i := 0; i < b.N; i++ {
+		b.StopTimer()
+		s := generateSlice(100000)
+		b.StartTimer()
+		bubbleSort(s)
+	}
 }
 
 func TestBubblesort_10(t *testing.T) {
