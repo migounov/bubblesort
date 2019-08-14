@@ -18,14 +18,14 @@ func generateSlice(n int) []int {
 }
 
 func BenchmarkBubblesort(b *testing.B) {
-	type parameters struct{
-		name		string
-        sliceSize 	int
+	type parameters struct {
+		name      string
+		sliceSize int
 	}
 
 	var params []parameters
 	for i := 1; i <= 10; i++ {
-		params = append(params, parameters{strconv.Itoa(i*10000), i*10000})
+		params = append(params, parameters{strconv.Itoa(i * 10000), i * 10000})
 	}
 
 	for _, p := range params {
@@ -52,4 +52,3 @@ func TestBubblesort(t *testing.T) {
 		t.Errorf("Array is not sorted!")
 	}
 }
-
