@@ -13,14 +13,24 @@ func BenchmarkSort(b *testing.B) {
 	}
 
 	var params []parameters
-	/*for i := 1; i <= 50; i++ {
-		params = append(params, parameters{"Bubble", strconv.Itoa(i * 2) + "K", i * 2000})
-	}
-	for i := 1; i <= 50; i++ {
-		params = append(params, parameters{"Merge", strconv.Itoa(i * 2) + "M", i * 2000000})
-	}*/
-	for i := 1; i <= 50; i++ {
-		params = append(params, parameters{"Quick", strconv.Itoa(i*2) + "M", i * 2000000})
+	for _, alg := range []string{"Bubble", "Merge", "Quick"} {
+		for i := 1; i <= 10; i++ {
+			params = append(params, parameters{alg, strconv.Itoa(i) + "K", i * 1000})
+		}
+		for i := 2; i <= 10; i++ {
+			params = append(params, parameters{alg, strconv.Itoa(i*10) + "K", i * 10000})
+		}
+		if alg != "Bubble" {
+			for i := 2; i <= 10; i++ {
+				params = append(params, parameters{alg, strconv.Itoa(i*100) + "K", i * 100000})
+			}
+			for i := 2; i <= 10; i++ {
+				params = append(params, parameters{alg, strconv.Itoa(i) + "M", i * 1000000})
+			}
+			for i := 2; i <= 10; i++ {
+				params = append(params, parameters{alg, strconv.Itoa(i*10) + "M", i * 10000000})
+			}
+		}
 	}
 
 	for _, p := range params {

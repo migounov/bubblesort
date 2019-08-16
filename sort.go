@@ -2,7 +2,6 @@ package sort
 
 import (
 	"math/rand"
-	"time"
 )
 
 func bubbleSort(s []int) {
@@ -53,7 +52,6 @@ func quickSort(s []int) []int {
 	}
 
 	insertSpot := 0
-	rand.Seed(time.Now().UnixNano())
 	pivot := rand.Int() % len(s)
 	s[pivot], s[len(s)-1] = s[len(s)-1], s[pivot]
 	pivot = len(s) - 1
