@@ -1,17 +1,9 @@
-package main
+package sort
 
 import (
-	"fmt"
 	"math/rand"
+	"time"
 )
-
-func generateSlice(n int) []int {
-	s := make([]int, 0, n)
-	for i := 0; i < n; i++ {
-		s = append(s, rand.Int())
-	}
-	return s
-}
 
 func bubbleSort(s []int) {
 	for countPasses, swapped := 1, true; countPasses < len(s) && swapped; countPasses++ {
@@ -25,7 +17,7 @@ func bubbleSort(s []int) {
 	}
 }
 
-func Merge(left, right []int) []int {
+func merge(left, right []int) []int {
 	result := make([]int, 0, len(left)+len(right))
 	for len(left) > 0 || len(right) > 0 {
 		if len(left) == 0 {
@@ -45,17 +37,38 @@ func Merge(left, right []int) []int {
 	return result
 }
 
-func MergeSort(s []int) []int {
+func mergeSort(s []int) []int {
 	if len(s) <= 1 {
 		return s
 	}
 	n := len(s) / 2
-	l := MergeSort(s[:n])
-	r := MergeSort(s[n:])
-	return Merge(l, r)
+	l := mergeSort(s[:n])
+	r := mergeSort(s[n:])
+	return merge(l, r)
 }
 
-func main() {
-	s := generateSlice(10)
-	fmt.Printf("%v\n%v\n", s, MergeSort(s))
+func quickSort(s []int) []int {
+    if len(s) <= 1 {
+        return s
+    }
+
+    insertSpot := 0
+    rand.Seed(time.Now().UnixNano())
+	pivot := rand.Int() % len(s)
+    s[pivot], s[len(s)-1] = s[len(s)-1], s[pivot]
+    pivot = len(s)-1
+
+    for i := 0; i < pivot; i++ {
+        if s[i] < s[pivot] {
+            s[insertSpot], s[i] = s[i], s[insertSpot]
+            insertSpot++
+        }
+    }
+
+    s[insertSpot], s[pivot] = s[pivot], s[insertSpot]
+    quickSort(s[:insertSpot])
+    quickSort(s[insertSpot+1:])
+
+    return s
 }
+

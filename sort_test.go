@@ -1,21 +1,58 @@
-package main
+package sort
 
 import (
 	"fmt"
+	"math/rand"
 	"reflect"
 	"sort"
 	"testing"
 )
 
-func TestBubblesort(t *testing.T) {
-	s := generateSlice(100)
-	e := make([]int, 100)
-	copy(e, s)
-	sort.Ints(e)
-	bubbleSort(s)
-	if !reflect.DeepEqual(s, e) {
-		fmt.Printf("Our sorted array: %v\n", s)
-		fmt.Printf("Expected array:   %v\n", e)
-		t.Errorf("Array is not sorted!")
+func generateSlice(n int) []int {
+	s := make([]int, 0, n)
+	for i := 0; i < n; i++ {
+		s = append(s, rand.Intn(100))
+	}
+	return s
+}
+
+func TestSort(t *testing.T) {
+	type parameters struct {
+		name      string
+		sliceSize int
+	}
+
+	var params []parameters
+	params = append(params, parameters{"Bubble", 1})
+	params = append(params, parameters{"Bubble", 1000})
+	params = append(params, parameters{"Merge", 1})
+	params = append(params, parameters{"Merge", 1000})
+	// params = append(params, parameters{"Quick", 1})
+	params = append(params, parameters{"Quick", 10})
+
+	for _, p := range params {
+		t.Run(p.name, func(t *testing.T) {
+			s := generateSlice(p.sliceSize)
+			act := make([]int, 0)
+			exp := make([]int, p.sliceSize)
+			copy(exp, s)
+			sort.Ints(exp)
+
+			switch p.name {
+			case "Bubble":
+				bubbleSort(s)
+				act = s
+			case "Merge":
+				act = mergeSort(s)
+			case "Quick":
+				act = quickSort(s)
+			}
+
+			if !reflect.DeepEqual(act, exp) {
+				fmt.Printf("Our sorted array: %v\n", act)
+				fmt.Printf("Expected array:   %v\n", exp)
+				t.Errorf("Array is not sorted!")
+			}
+		})
 	}
 }
