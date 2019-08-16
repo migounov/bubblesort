@@ -20,11 +20,11 @@ func BenchmarkSort(b *testing.B) {
 		params = append(params, parameters{"Merge", strconv.Itoa(i * 2) + "M", i * 2000000})
 	}*/
 	for i := 1; i <= 50; i++ {
-		params = append(params, parameters{"Quick", strconv.Itoa(i * 2) + "M", i * 2000000})
+		params = append(params, parameters{"Quick", strconv.Itoa(i*2) + "M", i * 2000000})
 	}
 
 	for _, p := range params {
-		b.Run(p.algorithm + p.name, func(b *testing.B) {
+		b.Run(p.algorithm+p.name, func(b *testing.B) {
 			for i := 0; i < b.N; i++ {
 				s := generateSlice(p.sliceSize)
 				b.StartTimer()

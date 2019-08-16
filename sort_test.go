@@ -11,7 +11,7 @@ import (
 func generateSlice(n int) []int {
 	s := make([]int, 0, n)
 	for i := 0; i < n; i++ {
-		s = append(s, rand.Intn(100))
+		s = append(s, rand.Int())
 	}
 	return s
 }
@@ -27,8 +27,8 @@ func TestSort(t *testing.T) {
 	params = append(params, parameters{"Bubble", 1000})
 	params = append(params, parameters{"Merge", 1})
 	params = append(params, parameters{"Merge", 1000})
-	// params = append(params, parameters{"Quick", 1})
-	params = append(params, parameters{"Quick", 10})
+	params = append(params, parameters{"Quick", 1})
+	params = append(params, parameters{"Quick", 1000})
 
 	for _, p := range params {
 		t.Run(p.name, func(t *testing.T) {

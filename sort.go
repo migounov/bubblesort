@@ -48,27 +48,26 @@ func mergeSort(s []int) []int {
 }
 
 func quickSort(s []int) []int {
-    if len(s) <= 1 {
-        return s
-    }
+	if len(s) <= 1 {
+		return s
+	}
 
-    insertSpot := 0
-    rand.Seed(time.Now().UnixNano())
+	insertSpot := 0
+	rand.Seed(time.Now().UnixNano())
 	pivot := rand.Int() % len(s)
-    s[pivot], s[len(s)-1] = s[len(s)-1], s[pivot]
-    pivot = len(s)-1
+	s[pivot], s[len(s)-1] = s[len(s)-1], s[pivot]
+	pivot = len(s) - 1
 
-    for i := 0; i < pivot; i++ {
-        if s[i] < s[pivot] {
-            s[insertSpot], s[i] = s[i], s[insertSpot]
-            insertSpot++
-        }
-    }
+	for i := 0; i < pivot; i++ {
+		if s[i] < s[pivot] {
+			s[insertSpot], s[i] = s[i], s[insertSpot]
+			insertSpot++
+		}
+	}
 
-    s[insertSpot], s[pivot] = s[pivot], s[insertSpot]
-    quickSort(s[:insertSpot])
-    quickSort(s[insertSpot+1:])
+	s[insertSpot], s[pivot] = s[pivot], s[insertSpot]
+	quickSort(s[:insertSpot])
+	quickSort(s[insertSpot+1:])
 
-    return s
+	return s
 }
-
