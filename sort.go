@@ -4,7 +4,7 @@ import (
 	"math/rand"
 )
 
-func bubbleSort(s []int) {
+func bubbleSort(s []int) []int {
 	for countPasses, swapped := 1, true; countPasses < len(s) && swapped; countPasses++ {
 		swapped = false
 		for j := 0; j < len(s)-countPasses; j++ {
@@ -14,6 +14,7 @@ func bubbleSort(s []int) {
 			}
 		}
 	}
+	return s
 }
 
 func merge(left, right []int) []int {

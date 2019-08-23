@@ -8,6 +8,8 @@ import (
 	"testing"
 )
 
+type sortMethod func(s []int) []int
+
 func generateSlice(n int) []int {
 	s := make([]int, 0, n)
 	for i := 0; i < n; i++ {
@@ -18,17 +20,18 @@ func generateSlice(n int) []int {
 
 func TestSort(t *testing.T) {
 	type parameters struct {
-		name      string
-		sliceSize int
+		name      	string
+		sliceSize 	int
+		algorithm	sortMethod
 	}
 
 	var params []parameters
-	params = append(params, parameters{"Bubble", 1})
-	params = append(params, parameters{"Bubble", 1000})
-	params = append(params, parameters{"Merge", 1})
-	params = append(params, parameters{"Merge", 1000})
-	params = append(params, parameters{"Quick", 1})
-	params = append(params, parameters{"Quick", 1000})
+	params = append(params, parameters{"Bubble", 1, bubbleSort})
+	params = append(params, parameters{"Bubble", 1000, bubbleSort})
+	params = append(params, parameters{"Merge", 1, mergeSort})
+	params = append(params, parameters{"Merge", 1000, mergeSort})
+	params = append(params, parameters{"Quick", 1, quickSort})
+	params = append(params, parameters{"Quick", 1000, quickSort})
 
 	for _, p := range params {
 		t.Run(p.name, func(t *testing.T) {
@@ -38,15 +41,7 @@ func TestSort(t *testing.T) {
 			copy(exp, s)
 			sort.Ints(exp)
 
-			switch p.name {
-			case "Bubble":
-				bubbleSort(s)
-				act = s
-			case "Merge":
-				act = mergeSort(s)
-			case "Quick":
-				act = quickSort(s)
-			}
+			act = p.algorithm(s)
 
 			if !reflect.DeepEqual(act, exp) {
 				fmt.Printf("Our sorted array: %v\n", act)
